@@ -53,7 +53,7 @@ export const Report = (props: ReportProps) => {
     const fetchReport = async () => {
       const accessToken = await getAccessTokenSilently();
       const response = await fetch(
-        `https://api.dev.entur.io/timetable-public/v1/timetable-validation/${codespace}/${id}`,
+        `${process.env.REACT_APP_TIMETABLE_VALIDATION_API_URL}/${codespace}/${id}`,
         {
           headers: { Authorization: `Bearer ${accessToken}`}
         }
