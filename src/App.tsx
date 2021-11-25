@@ -24,7 +24,7 @@ function App() {
             domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
             clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ''}
             audience={process.env.REACT_APP_AUTH0_AUDIENCE || ''}
-            redirectUri={window.location.origin + process.env.REACT_APP_AUTH0_RELATIVE_CALLBACK_URL || ''}
+            redirectUri={`${window.location.origin}${process.env.REACT_APP_AUTH0_RELATIVE_CALLBACK_URL}`}
             cacheLocation="localstorage"
             useRefreshTokens
             onRedirectCallback={onRedirectCallback}
