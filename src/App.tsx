@@ -1,15 +1,10 @@
 import React from 'react'
 
-import { Router, Switch, Route, Link, useLocation } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react'
 
-import { HomeIcon, FileIcon, UserIcon } from '@entur/icons'
-import { SideNavigation, SideNavigationItem } from '@entur/menu'
-
-import Profile from './pages/Profile'
-import Home from './pages/Home'
-import Info from './pages/Info'
+import {Report} from './pages/Report'
 
 import './App.css'
 
@@ -23,62 +18,25 @@ const onRedirectCallback = (appState: any): void => {
     history.replace(appState?.returnTo || window.location.pathname)
 }
 
-const Menu = () => {
-    const location = useLocation()
-
-    return (
-        <SideNavigation className="menu">
-            <SideNavigationItem
-                as={Link}
-                to="/"
-                active={location.pathname === '/'}
-            >
-                <HomeIcon /> Hjem
-            </SideNavigationItem>
-            <SideNavigationItem
-                as={Link}
-                to="/info"
-                active={location.pathname === '/info'}
-            >
-                <FileIcon /> Informasjon
-            </SideNavigationItem>
-            <SideNavigationItem
-                as={Link}
-                to="/profil"
-                active={location.pathname === '/profil'}
-            >
-                <UserIcon /> Profilside
-            </SideNavigationItem>
-        </SideNavigation>
-    )
-}
-
 function App() {
     return (
         <Auth0Provider
-            domain="<DOMAIN>"
-            clientId="<CLIENT_ID>"
-            audience="<AUDIENCE>"
-            redirectUri={window.location.origin + '<RELATIVE_CALLBACK_URL>'}
+            domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
+            clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ''}
+            audience={process.env.REACT_APP_AUTH0_AUDIENCE || ''}
+            redirectUri={window.location.origin + process.env.REACT_APP_AUTH0_RELATIVE_CALLBACK_URL || ''}
             cacheLocation="localstorage"
             useRefreshTokens
             onRedirectCallback={onRedirectCallback}
         >
             <Router history={history}>
                 <div className="app">
-                    <Menu />
                     <div className="app-content">
                         <Switch>
-                            <Route path="/info">
-                                <Info />
-                            </Route>
                             <ProtectedRoute
-                                path="/profil"
-                                component={Profile}
+                                path="/report/:codespace/:id"
+                                component={Report}
                             />
-                            <Route path="/">
-                                <Home />
-                            </Route>
                         </Switch>
                     </div>
                 </div>
