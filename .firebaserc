@@ -1,5 +1,6 @@
 {
-    "projects": {
-        "dev": "udug-dev"
-    }
+  "projects": {
+    "dev": "udug-dev",
+    "default": "udug-dev"
+  }
 }
