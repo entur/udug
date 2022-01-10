@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { Loader } from '@entur/loader';
-import { Table, TableHead, TableRow, TableBody, HeaderCell, DataCell } from '@entur/table';
+import { Table, TableHead, TableRow, TableBody, HeaderCell, DataCell, ExpandRowButton, ExpandableRow } from '@entur/table';
 import { EmphasizedText, Heading1, Paragraph } from '@entur/typography';
 import { BannerAlertBox } from '@entur/alert';
 import { match } from 'react-router';
@@ -34,6 +34,35 @@ type ValidationReport = {
   validationReportEntries: ValidationReportEntry[];
 }
 
+const ExpRow = ({ fileName, summary, children }: { fileName: string, summary: Record<string, number>, children: ReactElement}) => {
+  const [open, setopen] = React.useState(false)
+  return (
+    <React.Fragment>
+      <TableRow>
+        <DataCell>
+          <ExpandRowButton onClick={() => setopen(!open)} open={open} />
+        </DataCell>
+        <DataCell>
+          {fileName}
+        </DataCell>
+        <DataCell>
+          {summary['error']}
+        </DataCell>
+        <DataCell>
+          {summary['warning']}
+        </DataCell>
+        <DataCell>
+          {summary['info']}
+        </DataCell>
+      </TableRow>
+      {/* Tabellen i eksemplet har 3 kolonner, derav colSpan={3} */}
+      <ExpandableRow colSpan={5} open={open}>
+        {children}
+      </ExpandableRow>
+    </React.Fragment>
+  )
+}
+
 
 export const Report = (props: ReportProps) => {
   const {
@@ -58,7 +87,6 @@ export const Report = (props: ReportProps) => {
           headers: { Authorization: `Bearer ${accessToken}`}
         }
       );
-      console.log(response);
       if (response.ok) {
         const report = await response.json();
         setReport(report);
@@ -70,9 +98,21 @@ export const Report = (props: ReportProps) => {
         });
       }
     }
-
     fetchReport();
   }, [codespace, id, getAccessTokenSilently]);
+
+  const groupedEntries = useMemo(() => {
+    return report?.validationReportEntries.reduce(
+      (entryMap, entry) => entryMap.set(entry.fileName, {
+        summary: {
+          error: entry.severity === 'ERROR' ? (entryMap.get(entry.fileName)?.summary?.error || 0) + 1 : (entryMap.get(entry.fileName)?.summary?.error || 0),
+          warning: entry.severity === 'WARNING' ? (entryMap.get(entry.fileName)?.summary?.warning || 0) + 1 : (entryMap.get(entry.fileName)?.summary?.warning || 0),
+          info: entry.severity === 'INFO' ? (entryMap.get(entry.fileName)?.summary?.info || 0) + 1 : (entryMap.get(entry.fileName)?.summary?.info || 0),
+        },
+        reportEntries: [...entryMap.get(entry.fileName)?.reportEntries || [], entry],
+      }),
+    new Map())
+  }, [report?.validationReportEntries]);
 
   return (
     <div>
@@ -90,27 +130,46 @@ export const Report = (props: ReportProps) => {
           <Paragraph>Codespace: <EmphasizedText>{report.codespace}</EmphasizedText></Paragraph>
           <Paragraph>Report ID: <EmphasizedText>{report.validationReportId}</EmphasizedText></Paragraph>
           <Paragraph>Created: <EmphasizedText>{new Date(report.creationDate).toLocaleString()}</EmphasizedText></Paragraph>
-          <Table>
+          <Table fixed>
             <TableHead>
               <TableRow>
-                <HeaderCell>Severity</HeaderCell>
-                <HeaderCell>Category</HeaderCell>
+                <HeaderCell padding="radio">{''}</HeaderCell>
                 <HeaderCell>File name</HeaderCell>
-                <HeaderCell>Message</HeaderCell>
+                <HeaderCell>Errors</HeaderCell>
+                <HeaderCell>Warnings</HeaderCell>
+                <HeaderCell>Info</HeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {report.validationReportEntries.map((entry, i) => (
-                <TableRow key={i}>
-                  <DataCell
-                    status={entry.severity === 'ERROR' ? 'negative' : 'neutral'}
-                  >
-                    {entry.severity}
-                  </DataCell>
-                  <DataCell>{entry.category}</DataCell>
-                  <DataCell>{entry.fileName}</DataCell>
-                  <DataCell>{entry.message}</DataCell>
-                </TableRow>
+              {Array.from(groupedEntries?.entries() || []).map((entry) => (
+                <ExpRow fileName={entry[0]} summary={entry[1].summary} key={entry[0]}>
+                  <div style={{ paddingTop: '0.5rem' }}>
+                    <Table spacing="middle">
+                      <TableHead>
+                        <TableRow>
+                          <HeaderCell style={{ paddingLeft: '4.5rem' }}>Severity</HeaderCell>
+                          <HeaderCell>Category</HeaderCell>
+                          <HeaderCell>File name</HeaderCell>
+                          <HeaderCell>Message</HeaderCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {entry[1].reportEntries.map((reportEntry: ValidationReportEntry, i: number) => (
+                          <TableRow key={i}>
+                            <DataCell
+                              style={{ paddingLeft: '4.5rem' }}
+                            >
+                              {reportEntry.severity}
+                            </DataCell>
+                            <DataCell>{reportEntry.category}</DataCell>
+                            <DataCell>{reportEntry.fileName}</DataCell>
+                            <DataCell>{reportEntry.message}</DataCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </ExpRow>
               ))}
             </TableBody>
           </Table>
