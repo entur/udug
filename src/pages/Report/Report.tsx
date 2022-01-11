@@ -10,7 +10,7 @@ import {
     ExpandRowButton,
     ExpandableRow,
 } from '@entur/table'
-import { EmphasizedText, Heading1, Paragraph } from '@entur/typography'
+import { EmphasizedText, Heading1, Paragraph, StrongText } from '@entur/typography'
 import { BannerAlertBox } from '@entur/alert'
 import { match } from 'react-router'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -65,6 +65,12 @@ const SEVERITY_LEVELS = ['INFO', 'WARNING', 'ERROR']
 
 const sortBySeverity = (a: string, b: string) => {
     return SEVERITY_LEVELS.indexOf(b) - SEVERITY_LEVELS.indexOf(a)
+}
+
+const splitMessage = (message: string) => {
+  const a = message.indexOf('[');
+  const b = message.indexOf(']');
+  return [message.substring(a + 1, b), message.substring(b + 1)];
 }
 
 export const Report = (props: ReportProps) => {
@@ -204,7 +210,7 @@ export const Report = (props: ReportProps) => {
                                                                     <DataCell style={{
                                                                       paddingLeft: '4.5rem'
                                                                     }}>
-                                                                      {messageEntry.message}
+                                                                      <StrongText>{splitMessage(messageEntry.message)[0]}</StrongText>: {splitMessage(messageEntry.message)[1]}
                                                                     </DataCell>
                                                                   </TableRow>
                                                                 ))}
