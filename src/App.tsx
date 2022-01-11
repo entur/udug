@@ -4,7 +4,7 @@ import { Router, Switch, Route } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react'
 
-import {Report} from './pages/Report'
+import { Report } from './pages/Report'
 
 import './App.css'
 
