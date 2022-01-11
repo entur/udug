@@ -10,14 +10,17 @@ import {
     ExpandRowButton,
     ExpandableRow,
 } from '@entur/table'
-import { EmphasizedText, Heading1, Paragraph, StrongText } from '@entur/typography'
+import {
+    EmphasizedText,
+    Heading1,
+    Paragraph,
+    StrongText,
+} from '@entur/typography'
 import { BannerAlertBox } from '@entur/alert'
 import { match } from 'react-router'
 import { useAuth0 } from '@auth0/auth0-react'
 import { groupReportEntries } from '../../util/groupReportEntries'
-import {
-    ValidationReport,
-} from '../../model/ValidationReport'
+import { ValidationReport } from '../../model/ValidationReport'
 
 type ReportParams = {
     codespace: string
@@ -37,7 +40,7 @@ const ExpRow = ({
     values,
     children,
 }: {
-    values: string[],
+    values: string[]
     children: ReactElement
 }) => {
     const [open, setopen] = React.useState(false)
@@ -50,8 +53,8 @@ const ExpRow = ({
                         open={open}
                     />
                 </DataCell>
-                {values.map(value => (
-                  <DataCell>{value}</DataCell>
+                {values.map((value) => (
+                    <DataCell>{value}</DataCell>
                 ))}
             </TableRow>
             <ExpandableRow colSpan={values.length + 1} open={open}>
@@ -68,9 +71,9 @@ const sortBySeverity = (a: string, b: string) => {
 }
 
 const splitMessage = (message: string) => {
-  const a = message.indexOf('[');
-  const b = message.indexOf(']');
-  return [message.substring(a + 1, b), message.substring(b + 1)];
+    const a = message.indexOf('[')
+    const b = message.indexOf(']')
+    return [message.substring(a + 1, b), message.substring(b + 1)]
 }
 
 export const Report = (props: ReportProps) => {
@@ -163,14 +166,20 @@ export const Report = (props: ReportProps) => {
                                 )
                                 .map((entry) => (
                                     <ExpRow
-                                        values={[entry[0], entry[1].severity, entry[1].count.toString()]}
+                                        values={[
+                                            entry[0],
+                                            entry[1].severity,
+                                            entry[1].count.toString(),
+                                        ]}
                                         key={entry[0]}
                                     >
                                         <div style={{ paddingTop: '0.5rem' }}>
                                             <Table spacing="middle">
                                                 <TableHead>
                                                     <TableRow>
-                                                        <HeaderCell padding="radio">{''}</HeaderCell>
+                                                        <HeaderCell padding="radio">
+                                                            {''}
+                                                        </HeaderCell>
                                                         <HeaderCell>
                                                             File name
                                                         </HeaderCell>
@@ -186,37 +195,68 @@ export const Report = (props: ReportProps) => {
                                                             [],
                                                     ).map((subEntry) => (
                                                         <ExpRow
-                                                          values={[subEntry[0], subEntry[1].count.toString()]}
-                                                          key={subEntry[0]}
+                                                            values={[
+                                                                subEntry[0],
+                                                                subEntry[1].count.toString(),
+                                                            ]}
+                                                            key={subEntry[0]}
                                                         >
-                                                          <div style={{ paddingTop: '0.5rem'}}>
-                                                            <Table spacing="small">
-                                                              <TableHead>
-                                                                <TableRow>
-                                                                  <HeaderCell
-                                                                    style={{
-                                                                      paddingLeft: '4.5rem'
-                                                                    }}
-                                                                  >
-                                                                    Message
-                                                                  </HeaderCell>
-                                                                </TableRow>
-                                                              </TableHead>
-                                                              <TableBody>
-                                                                {subEntry[1].entries?.map((messageEntry, messageEntryIndex) => (
-                                                                  <TableRow
-                                                                    key={messageEntryIndex}
-                                                                  >
-                                                                    <DataCell style={{
-                                                                      paddingLeft: '4.5rem'
-                                                                    }}>
-                                                                      <StrongText>{splitMessage(messageEntry.message)[0]}</StrongText>: {splitMessage(messageEntry.message)[1]}
-                                                                    </DataCell>
-                                                                  </TableRow>
-                                                                ))}
-                                                              </TableBody>
-                                                            </Table>
-                                                          </div>
+                                                            <div
+                                                                style={{
+                                                                    paddingTop:
+                                                                        '0.5rem',
+                                                                }}
+                                                            >
+                                                                <Table spacing="small">
+                                                                    <TableHead>
+                                                                        <TableRow>
+                                                                            <HeaderCell
+                                                                                style={{
+                                                                                    paddingLeft:
+                                                                                        '4.5rem',
+                                                                                }}
+                                                                            >
+                                                                                Message
+                                                                            </HeaderCell>
+                                                                        </TableRow>
+                                                                    </TableHead>
+                                                                    <TableBody>
+                                                                        {subEntry[1].entries?.map(
+                                                                            (
+                                                                                messageEntry,
+                                                                                messageEntryIndex,
+                                                                            ) => (
+                                                                                <TableRow
+                                                                                    key={
+                                                                                        messageEntryIndex
+                                                                                    }
+                                                                                >
+                                                                                    <DataCell
+                                                                                        style={{
+                                                                                            paddingLeft:
+                                                                                                '4.5rem',
+                                                                                        }}
+                                                                                    >
+                                                                                        <StrongText>
+                                                                                            {
+                                                                                                splitMessage(
+                                                                                                    messageEntry.message,
+                                                                                                )[0]
+                                                                                            }
+                                                                                        </StrongText>
+                                                                                        :{' '}
+                                                                                        {
+                                                                                            splitMessage(
+                                                                                                messageEntry.message,
+                                                                                            )[1]
+                                                                                        }
+                                                                                    </DataCell>
+                                                                                </TableRow>
+                                                                            ),
+                                                                        )}
+                                                                    </TableBody>
+                                                                </Table>
+                                                            </div>
                                                         </ExpRow>
                                                     ))}
                                                 </TableBody>
