@@ -34,7 +34,7 @@ type ValidationReport = {
   validationReportEntries: ValidationReportEntry[];
 }
 
-const ExpRow = ({ fileName, summary, children }: { fileName: string, summary: Record<string, number>, children: ReactElement}) => {
+const ExpRow = ({ category, count, severity, children }: { category: string, severity: string, count: number, children: ReactElement}) => {
   const [open, setopen] = React.useState(false)
   return (
     <React.Fragment>
@@ -43,16 +43,13 @@ const ExpRow = ({ fileName, summary, children }: { fileName: string, summary: Re
           <ExpandRowButton onClick={() => setopen(!open)} open={open} />
         </DataCell>
         <DataCell>
-          {fileName}
+          {category}
         </DataCell>
         <DataCell>
-          {summary['error']}
+          {severity}
         </DataCell>
         <DataCell>
-          {summary['warning']}
-        </DataCell>
-        <DataCell>
-          {summary['info']}
+          {count}
         </DataCell>
       </TableRow>
       {/* Tabellen i eksemplet har 3 kolonner, derav colSpan={3} */}
@@ -61,6 +58,24 @@ const ExpRow = ({ fileName, summary, children }: { fileName: string, summary: Re
       </ExpandableRow>
     </React.Fragment>
   )
+}
+
+const SEVERITY_LEVELS = [
+  'INFO',
+  'WARNING',
+  'ERROR',
+];
+
+const sortBySeverity = (a: string, b: string) => {
+  return SEVERITY_LEVELS.indexOf(b) - SEVERITY_LEVELS.indexOf(a);
+}
+
+const getSeverity = (current: string, next: string) => {
+  if (SEVERITY_LEVELS.indexOf(current) > SEVERITY_LEVELS.indexOf(next)) {
+    return current;
+  } else {
+    return next;
+  }
 }
 
 
@@ -103,13 +118,10 @@ export const Report = (props: ReportProps) => {
 
   const groupedEntries = useMemo(() => {
     return report?.validationReportEntries.reduce(
-      (entryMap, entry) => entryMap.set(entry.fileName, {
-        summary: {
-          error: entry.severity === 'ERROR' ? (entryMap.get(entry.fileName)?.summary?.error || 0) + 1 : (entryMap.get(entry.fileName)?.summary?.error || 0),
-          warning: entry.severity === 'WARNING' ? (entryMap.get(entry.fileName)?.summary?.warning || 0) + 1 : (entryMap.get(entry.fileName)?.summary?.warning || 0),
-          info: entry.severity === 'INFO' ? (entryMap.get(entry.fileName)?.summary?.info || 0) + 1 : (entryMap.get(entry.fileName)?.summary?.info || 0),
-        },
-        reportEntries: [...entryMap.get(entry.fileName)?.reportEntries || [], entry],
+      (entryMap, entry) => entryMap.set(entry.category, {
+        count: (entryMap.get(entry.category)?.count || 0) + 1,
+        severity: getSeverity(entryMap.get(entry.category)?.severity, entry.severity),
+        reportEntries: [...entryMap.get(entry.category)?.reportEntries || [], entry],
       }),
     new Map())
   }, [report?.validationReportEntries]);
@@ -134,15 +146,14 @@ export const Report = (props: ReportProps) => {
             <TableHead>
               <TableRow>
                 <HeaderCell padding="radio">{''}</HeaderCell>
-                <HeaderCell>File name</HeaderCell>
-                <HeaderCell>Errors</HeaderCell>
-                <HeaderCell>Warnings</HeaderCell>
-                <HeaderCell>Info</HeaderCell>
+                <HeaderCell>Category</HeaderCell>
+                <HeaderCell>Severity</HeaderCell>
+                <HeaderCell>Count</HeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {Array.from(groupedEntries?.entries() || []).map((entry) => (
-                <ExpRow fileName={entry[0]} summary={entry[1].summary} key={entry[0]}>
+              {Array.from(groupedEntries?.entries() || []).sort((a, b) => sortBySeverity(a[1].severity, b[1].severity)).map((entry) => (
+                <ExpRow category={entry[0]} count={entry[1].count} severity={entry[1].severity} key={entry[0]}>
                   <div style={{ paddingTop: '0.5rem' }}>
                     <Table spacing="middle">
                       <TableHead>
@@ -154,7 +165,7 @@ export const Report = (props: ReportProps) => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {entry[1].reportEntries.map((reportEntry: ValidationReportEntry, i: number) => (
+                        {entry[1].reportEntries.sort((a: ValidationReportEntry, b: ValidationReportEntry) => sortBySeverity(a.severity, b.severity)).map((reportEntry: ValidationReportEntry, i: number) => (
                           <TableRow key={i}>
                             <DataCell
                               style={{ paddingLeft: '4.5rem' }}
