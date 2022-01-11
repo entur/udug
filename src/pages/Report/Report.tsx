@@ -5,6 +5,8 @@ import { EmphasizedText, Heading1, Paragraph } from '@entur/typography';
 import { BannerAlertBox } from '@entur/alert';
 import { match } from 'react-router';
 import { useAuth0 } from '@auth0/auth0-react'
+import { groupReportEntries } from '../../util/groupReportEntries';
+import { ValidationReport, ValidationReportEntry } from '../../model/ValidationReport';
 
 type ReportParams = {
   codespace: string;
@@ -18,20 +20,6 @@ type ReportProps = {
 type ValidationReportFetchError = {
   status: number;
   statusText: string;
-}
-
-type ValidationReportEntry = {
-  severity: string;
-  category: string;
-  fileName: string;
-  message: string;
-}
-
-type ValidationReport = {
-  codespace: string;
-  creationDate: string;
-  validationReportId: string;
-  validationReportEntries: ValidationReportEntry[];
 }
 
 const ExpRow = ({ category, count, severity, children }: { category: string, severity: string, count: number, children: ReactElement}) => {
@@ -69,15 +57,6 @@ const SEVERITY_LEVELS = [
 const sortBySeverity = (a: string, b: string) => {
   return SEVERITY_LEVELS.indexOf(b) - SEVERITY_LEVELS.indexOf(a);
 }
-
-const getSeverity = (current: string, next: string) => {
-  if (SEVERITY_LEVELS.indexOf(current) > SEVERITY_LEVELS.indexOf(next)) {
-    return current;
-  } else {
-    return next;
-  }
-}
-
 
 export const Report = (props: ReportProps) => {
   const {
@@ -117,13 +96,7 @@ export const Report = (props: ReportProps) => {
   }, [codespace, id, getAccessTokenSilently]);
 
   const groupedEntries = useMemo(() => {
-    return report?.validationReportEntries.reduce(
-      (entryMap, entry) => entryMap.set(entry.category, {
-        count: (entryMap.get(entry.category)?.count || 0) + 1,
-        severity: getSeverity(entryMap.get(entry.category)?.severity, entry.severity),
-        reportEntries: [...entryMap.get(entry.category)?.reportEntries || [], entry],
-      }),
-    new Map())
+    return groupReportEntries(report?.validationReportEntries || [], 'category', 'fileName');
   }, [report?.validationReportEntries]);
 
   return (
@@ -158,14 +131,22 @@ export const Report = (props: ReportProps) => {
                     <Table spacing="middle">
                       <TableHead>
                         <TableRow>
-                          <HeaderCell style={{ paddingLeft: '4.5rem' }}>Severity</HeaderCell>
-                          <HeaderCell>Category</HeaderCell>
-                          <HeaderCell>File name</HeaderCell>
-                          <HeaderCell>Message</HeaderCell>
+                          <HeaderCell style={{ paddingLeft: '4.5rem' }}>File name</HeaderCell>
+                          <HeaderCell>Messages</HeaderCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {entry[1].reportEntries.sort((a: ValidationReportEntry, b: ValidationReportEntry) => sortBySeverity(a.severity, b.severity)).map((reportEntry: ValidationReportEntry, i: number) => (
+                        {Array.from(entry[1]?.groupedEntries || []).map((subEntry, subi) => (
+                          <TableRow key={subi}>
+                            <DataCell
+                              style={{ paddingLeft: '4.5rem' }}
+                            >
+                              {subEntry[0]}
+                            </DataCell>
+                            <DataCell>{subEntry[1].count}</DataCell>
+                          </TableRow>
+                        ))}
+                        {entry[1].entries?.sort((a: ValidationReportEntry, b: ValidationReportEntry) => sortBySeverity(a.severity, b.severity)).map((reportEntry: ValidationReportEntry, i: number) => (
                           <TableRow key={i}>
                             <DataCell
                               style={{ paddingLeft: '4.5rem' }}
