@@ -192,9 +192,6 @@ export const Report = (props: ReportProps) => {
                                                                       paddingLeft: '4.5rem'
                                                                     }}
                                                                   >
-                                                                    Category
-                                                                  </HeaderCell>
-                                                                  <HeaderCell>
                                                                     Message
                                                                   </HeaderCell>
                                                                 </TableRow>
@@ -207,9 +204,6 @@ export const Report = (props: ReportProps) => {
                                                                     <DataCell style={{
                                                                       paddingLeft: '4.5rem'
                                                                     }}>
-                                                                      {messageEntry.severity}
-                                                                    </DataCell>
-                                                                    <DataCell>
                                                                       {messageEntry.message}
                                                                     </DataCell>
                                                                   </TableRow>
