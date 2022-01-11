@@ -6,7 +6,7 @@ export enum SEVERITY {
 
 export type ValidationReportEntry = {
     severity: SEVERITY
-    category: string
+    name: string
     fileName: string
     message: string
 }

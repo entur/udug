@@ -17,7 +17,6 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { groupReportEntries } from '../../util/groupReportEntries'
 import {
     ValidationReport,
-    ValidationReportEntry,
 } from '../../model/ValidationReport'
 
 type ReportParams = {
@@ -35,14 +34,10 @@ type ValidationReportFetchError = {
 }
 
 const ExpRow = ({
-    category,
-    count,
-    severity,
+    values,
     children,
 }: {
-    category: string
-    severity: string
-    count: number
+    values: string[],
     children: ReactElement
 }) => {
     const [open, setopen] = React.useState(false)
@@ -55,12 +50,11 @@ const ExpRow = ({
                         open={open}
                     />
                 </DataCell>
-                <DataCell>{category}</DataCell>
-                <DataCell>{severity}</DataCell>
-                <DataCell>{count}</DataCell>
+                {values.map(value => (
+                  <DataCell>{value}</DataCell>
+                ))}
             </TableRow>
-            {/* Tabellen i eksemplet har 3 kolonner, derav colSpan={3} */}
-            <ExpandableRow colSpan={5} open={open}>
+            <ExpandableRow colSpan={values.length + 1} open={open}>
                 {children}
             </ExpandableRow>
         </React.Fragment>
@@ -110,7 +104,7 @@ export const Report = (props: ReportProps) => {
     const groupedEntries = useMemo(() => {
         return groupReportEntries(
             report?.validationReportEntries || [],
-            'category',
+            'name',
             'fileName',
         )
     }, [report?.validationReportEntries])
@@ -148,7 +142,7 @@ export const Report = (props: ReportProps) => {
                         <TableHead>
                             <TableRow>
                                 <HeaderCell padding="radio">{''}</HeaderCell>
-                                <HeaderCell>Category</HeaderCell>
+                                <HeaderCell>Rule name</HeaderCell>
                                 <HeaderCell>Severity</HeaderCell>
                                 <HeaderCell>Count</HeaderCell>
                             </TableRow>
@@ -163,21 +157,15 @@ export const Report = (props: ReportProps) => {
                                 )
                                 .map((entry) => (
                                     <ExpRow
-                                        category={entry[0]}
-                                        count={entry[1].count}
-                                        severity={entry[1].severity}
+                                        values={[entry[0], entry[1].severity, entry[1].count.toString()]}
                                         key={entry[0]}
                                     >
                                         <div style={{ paddingTop: '0.5rem' }}>
                                             <Table spacing="middle">
                                                 <TableHead>
                                                     <TableRow>
-                                                        <HeaderCell
-                                                            style={{
-                                                                paddingLeft:
-                                                                    '4.5rem',
-                                                            }}
-                                                        >
+                                                        <HeaderCell padding="radio">{''}</HeaderCell>
+                                                        <HeaderCell>
                                                             File name
                                                         </HeaderCell>
                                                         <HeaderCell>
@@ -190,71 +178,47 @@ export const Report = (props: ReportProps) => {
                                                         entry[1]
                                                             ?.groupedEntries ||
                                                             [],
-                                                    ).map((subEntry, subi) => (
-                                                        <TableRow key={subi}>
-                                                            <DataCell
-                                                                style={{
-                                                                    paddingLeft:
-                                                                        '4.5rem',
-                                                                }}
-                                                            >
-                                                                {subEntry[0]}
-                                                            </DataCell>
-                                                            <DataCell>
-                                                                {
-                                                                    subEntry[1]
-                                                                        .count
-                                                                }
-                                                            </DataCell>
-                                                        </TableRow>
-                                                    ))}
-                                                    {entry[1].entries
-                                                        ?.sort(
-                                                            (
-                                                                a: ValidationReportEntry,
-                                                                b: ValidationReportEntry,
-                                                            ) =>
-                                                                sortBySeverity(
-                                                                    a.severity,
-                                                                    b.severity,
-                                                                ),
-                                                        )
-                                                        .map(
-                                                            (
-                                                                reportEntry: ValidationReportEntry,
-                                                                i: number,
-                                                            ) => (
-                                                                <TableRow
-                                                                    key={i}
-                                                                >
-                                                                    <DataCell
-                                                                        style={{
-                                                                            paddingLeft:
-                                                                                '4.5rem',
-                                                                        }}
-                                                                    >
-                                                                        {
-                                                                            reportEntry.severity
-                                                                        }
-                                                                    </DataCell>
-                                                                    <DataCell>
-                                                                        {
-                                                                            reportEntry.category
-                                                                        }
-                                                                    </DataCell>
-                                                                    <DataCell>
-                                                                        {
-                                                                            reportEntry.fileName
-                                                                        }
-                                                                    </DataCell>
-                                                                    <DataCell>
-                                                                        {
-                                                                            reportEntry.message
-                                                                        }
-                                                                    </DataCell>
+                                                    ).map((subEntry) => (
+                                                        <ExpRow
+                                                          values={[subEntry[0], subEntry[1].count.toString()]}
+                                                          key={subEntry[0]}
+                                                        >
+                                                          <div style={{ paddingTop: '0.5rem'}}>
+                                                            <Table spacing="small">
+                                                              <TableHead>
+                                                                <TableRow>
+                                                                  <HeaderCell
+                                                                    style={{
+                                                                      paddingLeft: '4.5rem'
+                                                                    }}
+                                                                  >
+                                                                    Category
+                                                                  </HeaderCell>
+                                                                  <HeaderCell>
+                                                                    Message
+                                                                  </HeaderCell>
                                                                 </TableRow>
-                                                            ),
-                                                        )}
+                                                              </TableHead>
+                                                              <TableBody>
+                                                                {subEntry[1].entries?.map((messageEntry, messageEntryIndex) => (
+                                                                  <TableRow
+                                                                    key={messageEntryIndex}
+                                                                  >
+                                                                    <DataCell style={{
+                                                                      paddingLeft: '4.5rem'
+                                                                    }}>
+                                                                      {messageEntry.severity}
+                                                                    </DataCell>
+                                                                    <DataCell>
+                                                                      {messageEntry.message}
+                                                                    </DataCell>
+                                                                  </TableRow>
+                                                                ))}
+                                                              </TableBody>
+                                                            </Table>
+                                                          </div>
+                                                        </ExpRow>
+                                                    ))}
                                                 </TableBody>
                                             </Table>
                                         </div>
