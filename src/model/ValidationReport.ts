@@ -8,6 +8,9 @@ export type ValidationReportEntry = {
     severity: SEVERITY
     name: string
     fileName: string
+    lineNumber: number
+    columnNumber: number
+    objectId: string
     message: string
 }
 
