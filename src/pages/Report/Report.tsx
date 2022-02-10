@@ -19,7 +19,6 @@ import { groupReportEntries } from '../../util/groupReportEntries'
 import { useReport } from '../../hooks/useReport'
 import { ExpandableReportRow } from './ExpandableReportRow'
 import { sortBySeverity } from '../../util/sortBySeverity'
-import { ReportMessage } from './ReportMessage'
 
 type ReportParams = {
     codespace: string
@@ -149,6 +148,15 @@ export const Report = (props: ReportProps) => {
                                                                                         '4.5rem',
                                                                                 }}
                                                                             >
+                                                                                Line
+                                                                            </HeaderCell>
+                                                                            <HeaderCell>
+                                                                                Column
+                                                                            </HeaderCell>
+                                                                            <HeaderCell>
+                                                                                Id
+                                                                            </HeaderCell>
+                                                                            <HeaderCell>
                                                                                 Message
                                                                             </HeaderCell>
                                                                         </TableRow>
@@ -170,11 +178,16 @@ export const Report = (props: ReportProps) => {
                                                                                                 '4.5rem',
                                                                                         }}
                                                                                     >
-                                                                                        <ReportMessage
-                                                                                            message={
-                                                                                                messageEntry.message
-                                                                                            }
-                                                                                        />
+                                                                                        {messageEntry.lineNumber}
+                                                                                    </DataCell>
+                                                                                    <DataCell>
+                                                                                        {messageEntry.columnNumber}
+                                                                                    </DataCell>
+                                                                                    <DataCell>
+                                                                                        {messageEntry.objectId}
+                                                                                    </DataCell>
+                                                                                    <DataCell>
+                                                                                        {messageEntry.message}
                                                                                     </DataCell>
                                                                                 </TableRow>
                                                                             ),
