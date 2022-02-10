@@ -11,7 +11,7 @@
     "@entur/layout": "1.10.4",
     "@entur/loader": "0.4.5",
     "@entur/menu": "3.6.6",
-    "@entur/table": "4.5.0",
+    "@entur/table": "4.5.4",
     "@entur/tokens": "3.3.0",
     "@entur/typography": "1.6.10",
     "husky": "7.0.4",
