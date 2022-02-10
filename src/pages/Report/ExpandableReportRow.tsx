@@ -28,7 +28,7 @@ export const ExpandableReportRow = ({
                 ))}
             </TableRow>
             <ExpandableRow colSpan={values.length + 1} open={open}>
-                {children}
+                {open && children}
             </ExpandableRow>
         </React.Fragment>
     )
