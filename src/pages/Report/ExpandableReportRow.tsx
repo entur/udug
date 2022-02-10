@@ -11,7 +11,7 @@ export const ExpandableReportRow = ({
     children,
 }: {
     values: string[]
-    children: ReactElement
+    children: ReactElement,
 }) => {
     const [open, setopen] = React.useState(false)
     return (
@@ -23,8 +23,8 @@ export const ExpandableReportRow = ({
                         open={open}
                     />
                 </DataCell>
-                {values.map((value) => (
-                    <DataCell>{value}</DataCell>
+                {values.map((value, i) => (
+                    <DataCell key={`${i}-${value}`}>{value}</DataCell>
                 ))}
             </TableRow>
             <ExpandableRow colSpan={values.length + 1} open={open}>

@@ -1,24 +1,20 @@
 import React from 'react'
 
-import { Router, Switch, Route } from 'react-router-dom'
-import { createBrowserHistory } from 'history'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react'
 
 import { Report } from './pages/Report'
 
 import './App.css'
 
-export const history = createBrowserHistory()
+const AuthenticatedReport = withAuthenticationRequired(Report);
 
-const ProtectedRoute = ({ component, ...args }: any) => (
-    <Route component={withAuthenticationRequired(component)} {...args} />
-)
-
-const onRedirectCallback = (appState: any): void => {
-    history.replace(appState?.returnTo || window.location.pathname)
+const onRedirectCallback = (navigate: any) => (appState: any): void => {
+    navigate(appState?.returnTo || window.location.pathname);
 }
 
 function App() {
+    const navigate = useNavigate();
     return (
         <Auth0Provider
             domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
@@ -27,20 +23,18 @@ function App() {
             redirectUri={`${window.location.origin}${process.env.REACT_APP_AUTH0_RELATIVE_CALLBACK_URL}`}
             cacheLocation="localstorage"
             useRefreshTokens
-            onRedirectCallback={onRedirectCallback}
+            onRedirectCallback={onRedirectCallback(navigate)}
         >
-            <Router history={history}>
                 <div className="app">
                     <div className="app-content">
-                        <Switch>
-                            <ProtectedRoute
+                        <Routes>
+                            <Route
                                 path="/report/:codespace/:id"
-                                component={Report}
+                                element={<AuthenticatedReport />}
                             />
-                        </Switch>
+                        </Routes>
                     </div>
                 </div>
-            </Router>
         </Auth0Provider>
     )
 }

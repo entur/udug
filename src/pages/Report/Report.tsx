@@ -14,29 +14,21 @@ import {
     Paragraph,
 } from '@entur/typography'
 import { BannerAlertBox } from '@entur/alert'
-import { match } from 'react-router'
 import { groupReportEntries } from '../../util/groupReportEntries'
 import { useReport } from '../../hooks/useReport'
 import { ExpandableReportRow } from './ExpandableReportRow'
 import { sortBySeverity } from '../../util/sortBySeverity'
+import { useParams } from 'react-router-dom'
 
 type ReportParams = {
     codespace: string
     id: string
 }
 
-type ReportProps = {
-    match: match<ReportParams>
-}
+export const Report = () => {
+    const { codespace, id } = useParams<ReportParams>();
 
-export const Report = (props: ReportProps) => {
-    const {
-        match: {
-            params: { codespace, id },
-        },
-    } = props
-
-    const { report, error } = useReport(codespace, id)
+    const { report, error } = useReport(codespace!, id!)
 
     const groupedEntries = useMemo(() => {
         return groupReportEntries(
@@ -103,7 +95,7 @@ export const Report = (props: ReportProps) => {
                                             entry[1].severity,
                                             entry[1].count.toString(),
                                         ]}
-                                        key={entry[0]}
+                                        key={`row-${entry[0]}`}
                                     >
                                         <div style={{ paddingTop: '0.5rem' }}>
                                             <Table spacing="middle">
@@ -131,7 +123,7 @@ export const Report = (props: ReportProps) => {
                                                                 subEntry[0],
                                                                 subEntry[1].count.toString(),
                                                             ]}
-                                                            key={subEntry[0]}
+                                                            key={`row-${entry[0]}-${subEntry[0]}`}
                                                         >
                                                             <div
                                                                 style={{
