@@ -13,32 +13,35 @@ export const groupReportEntries = (
     subField?: keyof ValidationReportEntry,
 ): Map<keyof ValidationReportEntry, GroupedEntry> => {
     const groupedReportEntries = entries.reduce(
-        (entryMap, entry) =>
+        (entryMap, entry) => {
+            const current = entryMap.get(entry[field]);
+            const severity = getSeverity(current?.severity, entry.severity);
+            const entries = current?.entries || [];
+            entries.push(entry);
             entryMap.set(entry[field], {
-                count: (entryMap.get(entry[field])?.count || 0) + 1,
-                severity: getSeverity(
-                    entryMap.get(entry[field])?.severity,
-                    entry.severity,
-                ),
-                entries: [
-                    ...(entryMap.get(entry[field])?.entries || []),
-                    entry,
-                ],
-            }),
+                severity,
+                entries,
+            })
+            return entryMap;
+        },
         new Map(),
     );
-    return subField ? groupSubEntries(groupedReportEntries, subField) : groupedReportEntries;
+    return postProcess(groupedReportEntries, subField);
 }
 
-export const groupSubEntries = (
+export const postProcess = (
     grouped: Map<keyof ValidationReportEntry, GroupedEntry>,
-    subField: keyof ValidationReportEntry
+    subField?: keyof ValidationReportEntry
 ): Map<keyof ValidationReportEntry, GroupedEntry> => {
     grouped.forEach(groupedEntry => {
-        groupedEntry.groupedEntries = groupedEntry.entries ? groupReportEntries(
-            groupedEntry.entries,
-            subField
-        ) : undefined
+        if (subField) {
+            groupedEntry.groupedEntries = groupedEntry.entries ? groupReportEntries(
+                groupedEntry.entries,
+                subField
+            ) : undefined
+        }
+
+        groupedEntry.count = groupedEntry.entries?.length || 0;
     });
     return grouped;
 }

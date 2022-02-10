@@ -47,6 +47,16 @@ export const Report = (props: ReportProps) => {
         )
     }, [report?.validationReportEntries])
 
+    const sorted = useMemo(() => {
+        return Array.from(groupedEntries?.entries() || [])
+            .sort((a, b) =>
+                sortBySeverity(
+                    a[1].severity,
+                    b[1].severity,
+                ),
+            )
+    }, [groupedEntries]);
+
     return (
         <div>
             <Heading1>NeTEx validation report</Heading1>
@@ -86,13 +96,7 @@ export const Report = (props: ReportProps) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {Array.from(groupedEntries?.entries() || [])
-                                .sort((a, b) =>
-                                    sortBySeverity(
-                                        a[1].severity,
-                                        b[1].severity,
-                                    ),
-                                )
+                            {sorted
                                 .map((entry) => (
                                     <ExpandableReportRow
                                         values={[
