@@ -9,6 +9,7 @@ name: Deploy to Firebase Hosting on merge
 jobs:
   build_and_deploy_dev:
     runs-on: ubuntu-latest
+    environment: 'dev'
     env:
       REACT_APP_AUTH0_DOMAIN: ror-entur-dev.eu.auth0.com
       REACT_APP_AUTH0_CLIENT_ID: ojgOGhwqLWnzATwvn7keF3K15bHoAsMz
@@ -28,6 +29,8 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
   build_and_deploy_staging:
     runs-on: ubuntu-latest
+    needs: [build_and_deploy_dev]
+    environment: 'staging'
     env:
       REACT_APP_AUTH0_DOMAIN: ror-entur-staging.eu.auth0.com
       REACT_APP_AUTH0_CLIENT_ID: ZkW5qmiRf1lJ0GtY3u26gJ7aM3uV5HGw
@@ -47,6 +50,8 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
   build_and_deploy_prod:
     runs-on: ubuntu-latest
+    needs: [build_and_deploy_dev, build_and_deploy_staging]
+    environment: 'prod'
     env:
       REACT_APP_AUTH0_DOMAIN: auth2.entur.org
       REACT_APP_AUTH0_CLIENT_ID: ObZmMZwUDtNOWUTkrcouV89Uxb1VvkkJ
