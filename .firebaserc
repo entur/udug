@@ -1,6 +1,8 @@
 {
   "projects": {
     "dev": "udug-dev",
+    "staging": "udug-staging",
+    "production": "udug-prod",
     "default": "udug-dev"
   }
 }
