@@ -1,7 +1,7 @@
 {
   "name": "udug",
   "version": "0.1.0",
-  "private": true,
+  "license": "EUPL-1.2",
   "dependencies": {
     "@auth0/auth0-react": "1.8.0",
     "@entur/alert": "0.9.1",
