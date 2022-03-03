@@ -6,6 +6,13 @@ name: Deploy to Firebase Hosting on PR
 jobs:
   build_and_preview:
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_AUTH0_DOMAIN: ror-entur-dev.eu.auth0.com
+      REACT_APP_AUTH0_CLIENT_ID: ojgOGhwqLWnzATwvn7keF3K15bHoAsMz
+      REACT_APP_AUTH0_AUDIENCE: https://ror.api.dev.entur.io
+      REACT_APP_AUTH0_RELATIVE_CALLBACK_URL: /
+      REACT_APP_TIMETABLE_VALIDATION_API_URL: https://api.dev.entur.io/timetable-public/v1/timetable-validation
+      REACT_APP_STANDALONE: true
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
