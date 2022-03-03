@@ -1,44 +1,40 @@
 import React from 'react';
-
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
-
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { MicroFrontendPayload } from '@entur-partner/micro-frontend';
+import { ErrorBoundary, Box } from '@entur-partner/common';
+import { AppProvider } from './AppProvider';
+import './App.css';
 import { Report } from './pages/Report';
 
-import './App.css';
+interface AppProps extends MicroFrontendPayload {}
 
-const AuthenticatedReport = withAuthenticationRequired(Report);
-
-const onRedirectCallback =
-  (navigate: any) =>
-  (appState: any): void => {
-    navigate(appState?.returnTo || window.location.pathname);
-  };
-
-function App() {
-  const navigate = useNavigate();
+export function App(props: AppProps) {
   return (
-    <Auth0Provider
-      domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
-      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ''}
-      audience={process.env.REACT_APP_AUTH0_AUDIENCE || ''}
-      redirectUri={`${window.location.origin}${process.env.REACT_APP_AUTH0_RELATIVE_CALLBACK_URL}`}
-      cacheLocation="localstorage"
-      useRefreshTokens
-      onRedirectCallback={onRedirectCallback(navigate)}
-    >
-      <div className="app">
-        <div className="app-content">
-          <Routes>
-            <Route
-              path="/report/:codespace/:id"
-              element={<AuthenticatedReport />}
-            />
-          </Routes>
-        </div>
-      </div>
-    </Auth0Provider>
+    <React.StrictMode>
+      <ErrorBoundary
+        fallback={
+          <Box>
+            {/* <ErrorMessage /> */}
+            <pre>Error</pre>
+          </Box>
+        }
+      >
+        <AppProvider {...props}>
+          <BrowserRouter
+            basename={
+              process.env.REACT_APP_STANDALONE ? '' : 'netex-validation-reports'
+            }
+          >
+            <div className="app">
+              <div className="app-content">
+                <Switch>
+                  <Route path="/report/:codespace/:id" component={Report} />
+                </Switch>
+              </div>
+            </div>
+          </BrowserRouter>
+        </AppProvider>
+      </ErrorBoundary>
+    </React.StrictMode>
   );
 }
-
-export default App;
