@@ -11,6 +11,13 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "headers": [ {
+      "source": "**/*.@(eot|otf|ttf|ttc|woff|font.css|css|js|map)",
+      "headers": [ {
+        "key": "Access-Control-Allow-Origin",
+        "value": "*"
+      } ]
+    } ]
   }
 }
