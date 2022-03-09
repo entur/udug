@@ -1,5 +1,9 @@
 import React from 'react';
-import { Auth0Provider, Auth0ProviderOptions, useAuth0 } from '@auth0/auth0-react';
+import {
+  Auth0Provider,
+  Auth0ProviderOptions,
+  useAuth0,
+} from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
 import { App } from './App';
 
@@ -14,21 +18,19 @@ export interface Props extends Auth0ProviderOptions {}
 const AuthedApp = () => {
   const auth = useAuth0();
 
-  return (
-    <App getToken={auth.getAccessTokenSilently} />
-  )
-}
+  return <App getToken={auth.getAccessTokenSilently} />;
+};
 
 export const AppShellStandalone = (props: Props) => {
-    const history = useHistory()
-    return (
+  const history = useHistory();
+  return (
     <Auth0Provider
-        {...props}
-        cacheLocation="localstorage"
-        useRefreshTokens
-        onRedirectCallback={onRedirectCallback((v: string) => history.push(v))}
+      {...props}
+      cacheLocation="localstorage"
+      useRefreshTokens
+      onRedirectCallback={onRedirectCallback((v: string) => history.push(v))}
     >
       <AuthedApp />
     </Auth0Provider>
-    )
-}
+  );
+};
