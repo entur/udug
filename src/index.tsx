@@ -8,7 +8,6 @@ import { AppShellStandalone } from './AppShellStandalone';
 registerMicroFrontend<DefaultPayload>({
   microFrontendId: 'ror-udug',
   mount: (mountPoint, payload) => {
-    console.log(payload);
     ReactDOM.render(<App {...payload} />, mountPoint);
   },
   unmount: (mountPoint) => {
