@@ -13,7 +13,7 @@
       }
     ],
     "headers": [ {
-      "source": "**/*.@(eot|otf|ttf|ttc|woff|font.css|css|js|map)",
+      "source": "**/*.@(eot|otf|ttf|ttc|woff|css|js|map|json)",
       "headers": [ {
         "key": "Access-Control-Allow-Origin",
         "value": "*"
