@@ -14,7 +14,7 @@ export const useReport = (codespace: string, id: string) => {
 
   useEffect(() => {
     const fetchReport = async () => {
-      const accessToken = await getToken();
+      const accessToken = getToken ? await getToken() : '';
       const response = await fetch(
         `${process.env.REACT_APP_TIMETABLE_VALIDATION_API_URL}/${codespace}/${id}`,
         {

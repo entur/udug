@@ -4,8 +4,6 @@
   "license": "EUPL-1.2",
   "dependencies": {
     "@auth0/auth0-react": "1.9.0",
-    "@entur-partner/app-shell-standalone": "3.1.1",
-    "@entur-partner/micro-frontend": "2.1.1",
     "@entur/alert": "0.10.2",
     "@entur/button": "2.8.0",
     "@entur/dropdown": "2.2.4",

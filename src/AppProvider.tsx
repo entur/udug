@@ -1,49 +1,30 @@
 import React, { FC, ReactNode, useContext } from 'react';
-import { User } from '@entur-partner/micro-frontend';
-import { assertIsDefined } from '@entur-partner/util';
+import { DefaultPayload } from '@entur/micro-frontend';
 
-interface AppContextType {
-  getToken: () => Promise<string>;
-  user: User;
-  logout?: () => void;
-  activeOrgId: number;
-}
-
-export const AppContext = React.createContext<AppContextType | undefined>(
+export const AppContext = React.createContext<DefaultPayload | undefined>(
   undefined,
 );
 
 export const useAuth = () => {
   let context = useContext(AppContext);
-  assertIsDefined(context);
+
+
   return {
-    logout: context.logout,
-    getToken: context.getToken,
-    user: context.user,
+    getToken: context?.getToken
   };
 };
 
-export const useActiveOrgId = () => {
-  let context = useContext(AppContext);
-  assertIsDefined(context);
-  return context.activeOrgId;
-};
-
-interface AppProviderProps {
+interface AppProviderProps extends DefaultPayload {
   children: ReactNode;
-  getToken: () => Promise<string>;
-  user: User;
-  organisationId: string;
 }
 
 export const AppProvider: FC<AppProviderProps> = ({
   children,
-  organisationId,
   ...rest
 }) => {
   return (
     <AppContext.Provider
-      value={{ ...rest, activeOrgId: Number(organisationId) }}
+      value={{ ...rest }}
     >
       {children}
     </AppContext.Provider>

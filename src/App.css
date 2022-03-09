@@ -1,8 +1,8 @@
-.app {
+.udug-app {
   display: flex;
 }
 
-.app-content {
+.udug-app-content {
   max-width: 60rem;
   padding: var(--space-extra-large);
 }
