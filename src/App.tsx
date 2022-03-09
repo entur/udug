@@ -1,7 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-// import { MicroFrontendPayload } from '@entur-partner/micro-frontend';
-// import { ErrorBoundary, Box } from '@entur-partner/common';
 import { AppProvider } from './AppProvider';
 import './App.css';
 import { Report } from './pages/Report';

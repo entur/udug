@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { App } from './App';
 import { registerMicroFrontend, DefaultPayload } from '@entur/micro-frontend';
+import { AppShellStandalone } from './AppShellStandalone';
 
 registerMicroFrontend<DefaultPayload>({
   microFrontendId: 'ror-udug',
@@ -15,25 +16,14 @@ registerMicroFrontend<DefaultPayload>({
   },
 });
 
-// if (process.env.REACT_APP_STANDALONE) {
-//   ReactDOM.render(
-//     <AppShellStandalone
-//       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ''}
-//       domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
-//       audience={process.env.REACT_APP_AUTH0_AUDIENCE || ''}
-//       getOrganisations={async () => []}
-//       decorateUser={async (user, token) => ({
-//         ...user,
-//         'https://entur.io/organisationID': 1,
-//         permissions: [],
-//         enturPartnerPermissions: [],
-//       })}
-//       redirectUri={`${window.location.origin}${process.env.REACT_APP_AUTH0_RELATIVE_CALLBACK_URL}`}
-//     >
-//       {(values) => {
-//         return <App {...values} />;
-//       }}
-//     </AppShellStandalone>,
-//     document.getElementById('root'),
-//   );
-// }
+if (process.env.REACT_APP_STANDALONE) {
+  ReactDOM.render(
+    <AppShellStandalone
+      domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ''}
+      audience={process.env.REACT_APP_AUTH0_AUDIENCE || ''}
+      redirectUri={`${window.location.origin}${process.env.REACT_APP_AUTH0_RELATIVE_CALLBACK_URL}`}
+    />,
+    document.getElementById('root'),
+  );
+}

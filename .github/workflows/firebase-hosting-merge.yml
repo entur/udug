@@ -16,6 +16,7 @@ jobs:
       REACT_APP_AUTH0_AUDIENCE: https://ror.api.dev.entur.io
       REACT_APP_AUTH0_RELATIVE_CALLBACK_URL: /
       REACT_APP_TIMETABLE_VALIDATION_API_URL: https://api.dev.entur.io/timetable-public/v1/timetable-validation
+      REACT_APP_STANDALONE: true
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
@@ -37,6 +38,7 @@ jobs:
       REACT_APP_AUTH0_AUDIENCE: https://ror.api.staging.entur.io
       REACT_APP_AUTH0_RELATIVE_CALLBACK_URL: /
       REACT_APP_TIMETABLE_VALIDATION_API_URL: https://api.staging.entur.io/timetable-public/v1/timetable-validation
+      REACT_APP_STANDALONE: true
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
@@ -58,6 +60,7 @@ jobs:
       REACT_APP_AUTH0_AUDIENCE: https://ror.api.entur.io
       REACT_APP_AUTH0_RELATIVE_CALLBACK_URL: /
       REACT_APP_TIMETABLE_VALIDATION_API_URL: https://api.entur.io/timetable-public/v1/timetable-validation
+      REACT_APP_STANDALONE: true
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
