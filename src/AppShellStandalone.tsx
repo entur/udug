@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Auth0Provider, Auth0ProviderOptions, useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
 import { App } from './App';
