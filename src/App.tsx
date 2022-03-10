@@ -1,44 +1,30 @@
 import React from 'react';
-
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
-
-import { Report } from './pages/Report';
-
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { AppProvider } from './AppProvider';
 import './App.css';
+import { Report } from './pages/Report';
+import { DefaultPayload } from '@entur/micro-frontend';
 
-const AuthenticatedReport = withAuthenticationRequired(Report);
+interface AppProps extends DefaultPayload {}
 
-const onRedirectCallback =
-  (navigate: any) =>
-  (appState: any): void => {
-    navigate(appState?.returnTo || window.location.pathname);
-  };
-
-function App() {
-  const navigate = useNavigate();
+export function App(props: AppProps) {
   return (
-    <Auth0Provider
-      domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
-      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ''}
-      audience={process.env.REACT_APP_AUTH0_AUDIENCE || ''}
-      redirectUri={`${window.location.origin}${process.env.REACT_APP_AUTH0_RELATIVE_CALLBACK_URL}`}
-      cacheLocation="localstorage"
-      useRefreshTokens
-      onRedirectCallback={onRedirectCallback(navigate)}
-    >
-      <div className="app">
-        <div className="app-content">
-          <Routes>
-            <Route
-              path="/report/:codespace/:id"
-              element={<AuthenticatedReport />}
-            />
-          </Routes>
-        </div>
-      </div>
-    </Auth0Provider>
+    <React.StrictMode>
+      <AppProvider {...props}>
+        <BrowserRouter
+          basename={
+            process.env.REACT_APP_STANDALONE ? '' : 'netex-validation-reports'
+          }
+        >
+          <div className="udug-app">
+            <div className="udug-app-content">
+              <Switch>
+                <Route path="/report/:codespace/:id" component={Report} />
+              </Switch>
+            </div>
+          </div>
+        </BrowserRouter>
+      </AppProvider>
+    </React.StrictMode>
   );
 }
-
-export default App;

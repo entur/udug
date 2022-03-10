@@ -1,9 +1,8 @@
-.app {
+.udug-app {
   display: flex;
 }
 
-.app-content {
-  margin-left: 26rem;
+.udug-app-content {
   max-width: 60rem;
   padding: var(--space-extra-large);
 }

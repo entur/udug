@@ -1,5 +1,5 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
+import { useAuth } from '../AppProvider';
 import { ValidationReport } from '../model/ValidationReport';
 
 type ValidationReportFetchError = {
@@ -8,13 +8,13 @@ type ValidationReportFetchError = {
 };
 
 export const useReport = (codespace: string, id: string) => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getToken } = useAuth();
   const [report, setReport] = useState<ValidationReport | undefined>();
   const [error, setError] = useState<ValidationReportFetchError | undefined>();
 
   useEffect(() => {
     const fetchReport = async () => {
-      const accessToken = await getAccessTokenSilently();
+      const accessToken = getToken ? await getToken() : '';
       const response = await fetch(
         `${process.env.REACT_APP_TIMETABLE_VALIDATION_API_URL}/${codespace}/${id}`,
         {
@@ -33,7 +33,7 @@ export const useReport = (codespace: string, id: string) => {
       }
     };
     fetchReport();
-  }, [codespace, id, getAccessTokenSilently]);
+  }, [codespace, id, getToken]);
 
   return { report, error };
 };
