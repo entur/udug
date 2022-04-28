@@ -16,7 +16,7 @@
     "@entur/modal": "1.5.13",
     "@entur/table": "4.5.9",
     "@entur/tokens": "3.3.2",
-    "@entur/typography": "1.6.11",
+    "@entur/typography": "1.6.12",
     "husky": "7.0.4",
     "lint-staged": "12.4.1",
     "react": "17.0.2",
