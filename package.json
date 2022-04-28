@@ -13,7 +13,7 @@
     "@entur/loader": "0.4.6",
     "@entur/menu": "4.0.10",
     "@entur/micro-frontend": "0.2.0",
-    "@entur/modal": "1.5.12",
+    "@entur/modal": "1.5.13",
     "@entur/table": "4.5.8",
     "@entur/tokens": "3.3.1",
     "@entur/typography": "1.6.11",
