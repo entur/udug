@@ -15,7 +15,7 @@
     "@entur/micro-frontend": "0.2.0",
     "@entur/modal": "1.5.13",
     "@entur/table": "4.5.9",
-    "@entur/tokens": "3.3.1",
+    "@entur/tokens": "3.3.2",
     "@entur/typography": "1.6.11",
     "husky": "7.0.4",
     "lint-staged": "12.4.1",
