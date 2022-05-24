@@ -14,7 +14,7 @@
     "@entur/menu": "4.1.1",
     "@entur/micro-frontend": "0.2.0",
     "@entur/modal": "1.6.1",
-    "@entur/table": "4.5.10",
+    "@entur/table": "4.5.11",
     "@entur/tokens": "3.3.2",
     "@entur/typography": "1.6.12",
     "husky": "7.0.4",
