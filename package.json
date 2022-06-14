@@ -19,8 +19,8 @@
     "@entur/typography": "1.6.13",
     "husky": "7.0.4",
     "lint-staged": "12.5.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-router-dom": "5.3.3",
     "react-scripts": "5.0.1"
   },
