@@ -21,9 +21,14 @@ export const ExpandableReportRow = ({
 
   return (
     <React.Fragment>
-      <TableRow onClick={() => setopen(!open)} className="expandable_report_row" style={{
-        backgroundColor: severity === SEVERITY.CRITICAL ? '#ffcece' : 'transparent'
-      }}>
+      <TableRow
+        onClick={() => setopen(!open)}
+        className="expandable_report_row"
+        style={{
+          backgroundColor:
+            severity === SEVERITY.CRITICAL ? '#ffcece' : 'transparent',
+        }}
+      >
         <DataCell>
           <ExpandRowButton onClick={() => setopen(!open)} open={open} />
         </DataCell>
