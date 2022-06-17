@@ -66,6 +66,12 @@ export const Report = () => {
               {new Date(report.creationDate).toLocaleString()}
             </EmphasizedText>
           </Paragraph>
+          {sorted.length === 0 && (
+            <BannerAlertBox title="No validation issues" variant="info">
+              The validation report contains no issues.
+            </BannerAlertBox>
+          )}
+          {sorted.length > 0 && (
           <Table fixed>
             <TableHead>
               <TableRow>
@@ -160,6 +166,7 @@ export const Report = () => {
               ))}
             </TableBody>
           </Table>
+          )}
         </>
       )}
     </div>
