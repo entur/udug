@@ -5,6 +5,7 @@ import {
   TableRow,
 } from '@entur/table';
 import React, { ReactElement } from 'react';
+import './style.css';
 
 export const ExpandableReportRow = ({
   values,
@@ -16,7 +17,7 @@ export const ExpandableReportRow = ({
   const [open, setopen] = React.useState(false);
   return (
     <React.Fragment>
-      <TableRow>
+      <TableRow onClick={() => setopen(!open)} className="expandable_report_row">
         <DataCell>
           <ExpandRowButton onClick={() => setopen(!open)} open={open} />
         </DataCell>
