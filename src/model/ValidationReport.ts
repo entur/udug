@@ -2,6 +2,7 @@ export enum SEVERITY {
   INFO = 'INFO',
   WARNING = 'WARNING',
   ERROR = 'ERROR',
+  CRITICAL = 'CRITICAL',
 }
 
 export type ValidationReportEntry = {

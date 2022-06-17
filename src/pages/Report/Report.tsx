@@ -84,6 +84,7 @@ export const Report = () => {
             <TableBody>
               {sorted.map((entry) => (
                 <ExpandableReportRow
+                  severity={entry[1].severity}
                   values={[
                     entry[0],
                     entry[1].severity,

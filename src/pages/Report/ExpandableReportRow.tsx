@@ -5,19 +5,25 @@ import {
   TableRow,
 } from '@entur/table';
 import React, { ReactElement } from 'react';
+import { SEVERITY } from '../../model/ValidationReport';
 import './style.css';
 
 export const ExpandableReportRow = ({
   values,
   children,
+  severity,
 }: {
   values: string[];
   children: ReactElement;
+  severity?: SEVERITY;
 }) => {
   const [open, setopen] = React.useState(false);
+
   return (
     <React.Fragment>
-      <TableRow onClick={() => setopen(!open)} className="expandable_report_row">
+      <TableRow onClick={() => setopen(!open)} className="expandable_report_row" style={{
+        backgroundColor: severity === SEVERITY.CRITICAL ? '#ffcece' : 'transparent'
+      }}>
         <DataCell>
           <ExpandRowButton onClick={() => setopen(!open)} open={open} />
         </DataCell>
