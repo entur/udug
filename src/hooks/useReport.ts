@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../AppProvider';
+import { useConfig } from '../config/config';
 import { ValidationReport } from '../model/ValidationReport';
 
 type ValidationReportFetchError = {
@@ -9,6 +10,7 @@ type ValidationReportFetchError = {
 
 export const useReport = (codespace: string, id: string) => {
   const { getToken } = useAuth();
+  const config = useConfig();
   const [report, setReport] = useState<ValidationReport | undefined>();
   const [error, setError] = useState<ValidationReportFetchError | undefined>();
 
@@ -16,7 +18,7 @@ export const useReport = (codespace: string, id: string) => {
     const fetchReport = async () => {
       const accessToken = getToken ? await getToken() : '';
       const response = await fetch(
-        `${process.env.REACT_APP_TIMETABLE_VALIDATION_API_URL}/${codespace}/${id}`,
+        `${config.timetableValidationApiUrl}/${codespace}/${id}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         },

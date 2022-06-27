@@ -1,0 +1,3 @@
+{
+  "timetableValidationApiUrl": "https://api.dev.entur.io/timetable-public/v1/timetable-validation"
+}

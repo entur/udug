@@ -4,12 +4,19 @@ import { AppProvider } from './AppProvider';
 import './App.css';
 import { Report } from './pages/Report';
 import { DefaultPayload } from '@entur/micro-frontend';
+import { ConfigContext, useConfigProviderValue } from './config/config';
 
 interface AppProps extends DefaultPayload {}
 
 export function App(props: AppProps) {
+  const {
+    config,
+    loading
+  } = useConfigProviderValue(props.env!);
+
   return (
     <React.StrictMode>
+      {!loading && (<ConfigContext.Provider value={config}>
       <AppProvider {...props}>
         <BrowserRouter
           basename={
@@ -25,6 +32,7 @@ export function App(props: AppProps) {
           </div>
         </BrowserRouter>
       </AppProvider>
+      </ConfigContext.Provider>)}
     </React.StrictMode>
   );
 }
