@@ -26,7 +26,7 @@ export const useConfigProviderValue = (env: string) => {
       setLoading(false);
     };
     fetchConfig();
-  }, []);
+  }, [env]);
 
   return {
     config,

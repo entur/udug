@@ -35,7 +35,7 @@ export const useReport = (codespace: string, id: string) => {
       }
     };
     fetchReport();
-  }, [codespace, id, getToken]);
+  }, [codespace, id, getToken, config.timetableValidationApiUrl]);
 
   return { report, error };
 };
