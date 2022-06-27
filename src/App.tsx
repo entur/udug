@@ -6,7 +6,7 @@ import { DefaultPayload } from '@entur/micro-frontend';
 import { ConfigContext, useConfigProviderValue } from './config/config';
 import { IntlProvider } from 'react-intl';
 import { useLocaleData } from './hooks/useLocaleData';
-import './App.scss';
+import './App.css';
 
 interface AppProps extends DefaultPayload {}
 

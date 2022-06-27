@@ -17,7 +17,7 @@ import { useParams } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { Preamble } from './Preamble';
 import { NoValidationIssues } from './NoValidationIssues';
-import './styles.scss';
+import './styles.css';
 
 type ReportParams = {
   codespace: string;
