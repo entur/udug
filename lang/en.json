@@ -26,5 +26,17 @@
   "report.preamble.reportIdLabel": {
     "defaultMessage": "Report ID",
     "description": "Label for report ID in report preamble"
+  },
+  "reportEntryTable.columnHeaderLabel": {
+    "defaultMessage": "Column",
+    "description": "Label for column header"
+  },
+  "reportEntryTable.idHeaderLabel": {
+    "defaultMessage": "Id",
+    "description": "Label for ID header"
+  },
+  "reportEntryTable.messageHeaderLabel": {
+    "defaultMessage": "Message",
+    "description": "Label for message header"
   }
 }

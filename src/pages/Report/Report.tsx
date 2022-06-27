@@ -18,6 +18,7 @@ import { useParams } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { Preamble } from './Preamble';
 import { NoValidationIssues } from './NoValidationIssues';
+import './styles.scss';
 
 type ReportParams = {
   codespace: string;
@@ -112,54 +113,7 @@ export const Report = () => {
                                   subEntry[1].count.toString(),
                                 ]}
                                 key={`row-${entry[0]}-${subEntry[0]}`}
-                              >
-                                <div
-                                  style={{
-                                    paddingTop: '0.5rem',
-                                  }}
-                                >
-                                  <Table spacing="small">
-                                    <TableHead>
-                                      <TableRow>
-                                        <HeaderCell
-                                          style={{
-                                            paddingLeft: '4.5rem',
-                                          }}
-                                        >
-                                          Line
-                                        </HeaderCell>
-                                        <HeaderCell>Column</HeaderCell>
-                                        <HeaderCell>Id</HeaderCell>
-                                        <HeaderCell>Message</HeaderCell>
-                                      </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                      {subEntry[1].entries?.map(
-                                        (messageEntry, messageEntryIndex) => (
-                                          <TableRow key={messageEntryIndex}>
-                                            <DataCell
-                                              style={{
-                                                paddingLeft: '4.5rem',
-                                              }}
-                                            >
-                                              {messageEntry.lineNumber}
-                                            </DataCell>
-                                            <DataCell>
-                                              {messageEntry.columnNumber}
-                                            </DataCell>
-                                            <DataCell>
-                                              {messageEntry.objectId}
-                                            </DataCell>
-                                            <DataCell>
-                                              {messageEntry.message}
-                                            </DataCell>
-                                          </TableRow>
-                                        ),
-                                      )}
-                                    </TableBody>
-                                  </Table>
-                                </div>
-                              </ExpandableReportRow>
+                              ></ExpandableReportRow>
                             ),
                           )}
                         </TableBody>

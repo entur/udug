@@ -1,6 +1,6 @@
 import { SEVERITY, ValidationReportEntry } from '../model/ValidationReport';
 
-type GroupedEntry = {
+export type GroupedEntry = {
   count: number;
   severity: SEVERITY;
   groupedEntries?: Map<keyof ValidationReportEntry, GroupedEntry>;
