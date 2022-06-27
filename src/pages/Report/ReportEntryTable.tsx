@@ -10,9 +10,11 @@ import { useIntl } from 'react-intl';
 import { ValidationReportEntry } from '../../model/ValidationReport';
 import { GroupedEntry } from '../../util/groupReportEntries';
 
-export const ReportEntryTable = (
-  subEntry: [keyof ValidationReportEntry, GroupedEntry],
-) => {
+export const ReportEntryTable = ({
+  subEntry,
+}: {
+  subEntry: [keyof ValidationReportEntry, GroupedEntry];
+}) => {
   const { formatMessage } = useIntl();
   return (
     <div className="report_entry_table-wrapper">

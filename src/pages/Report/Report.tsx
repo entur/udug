@@ -18,6 +18,7 @@ import { useIntl } from 'react-intl';
 import { Preamble } from './Preamble';
 import { NoValidationIssues } from './NoValidationIssues';
 import './styles.css';
+import { ReportEntryTable } from './ReportEntryTable';
 
 type ReportParams = {
   codespace: string;
@@ -112,7 +113,9 @@ export const Report = () => {
                                   subEntry[1].count.toString(),
                                 ]}
                                 key={`row-${entry[0]}-${subEntry[0]}`}
-                              ></ExpandableReportRow>
+                              >
+                                <ReportEntryTable subEntry={subEntry} />
+                              </ExpandableReportRow>
                             ),
                           )}
                         </TableBody>
