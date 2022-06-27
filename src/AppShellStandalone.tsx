@@ -18,7 +18,13 @@ export interface Props extends Auth0ProviderOptions {}
 const AuthedApp = () => {
   const auth = useAuth0();
 
-  return <App locale={process.env.REACT_APP_LOCALE || 'en'} env={process.env.REACT_APP_ENV || 'dev'} getToken={auth.getAccessTokenSilently} />;
+  return (
+    <App
+      locale={process.env.REACT_APP_LOCALE || 'en'}
+      env={process.env.REACT_APP_ENV || 'dev'}
+      getToken={auth.getAccessTokenSilently}
+    />
+  );
 };
 
 export const AppShellStandalone = (props: Props) => {

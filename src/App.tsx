@@ -9,30 +9,31 @@ import { ConfigContext, useConfigProviderValue } from './config/config';
 interface AppProps extends DefaultPayload {}
 
 export function App(props: AppProps) {
-  const {
-    config,
-    loading
-  } = useConfigProviderValue(props.env!);
+  const { config, loading } = useConfigProviderValue(props.env!);
 
   return (
     <React.StrictMode>
-      {!loading && (<ConfigContext.Provider value={config}>
-      <AppProvider {...props}>
-        <BrowserRouter
-          basename={
-            process.env.REACT_APP_STANDALONE ? '' : 'netex-validation-reports'
-          }
-        >
-          <div className="udug-app">
-            <div className="udug-app-content">
-              <Switch>
-                <Route path="/report/:codespace/:id" component={Report} />
-              </Switch>
-            </div>
-          </div>
-        </BrowserRouter>
-      </AppProvider>
-      </ConfigContext.Provider>)}
+      {!loading && (
+        <ConfigContext.Provider value={config}>
+          <AppProvider {...props}>
+            <BrowserRouter
+              basename={
+                process.env.REACT_APP_STANDALONE
+                  ? ''
+                  : 'netex-validation-reports'
+              }
+            >
+              <div className="udug-app">
+                <div className="udug-app-content">
+                  <Switch>
+                    <Route path="/report/:codespace/:id" component={Report} />
+                  </Switch>
+                </div>
+              </div>
+            </BrowserRouter>
+          </AppProvider>
+        </ConfigContext.Provider>
+      )}
     </React.StrictMode>
   );
 }
