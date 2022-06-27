@@ -12,7 +12,7 @@
     "@entur/layout": "2.1.6",
     "@entur/loader": "0.4.7",
     "@entur/menu": "4.1.1",
-    "@entur/micro-frontend": "0.2.0",
+    "@entur/micro-frontend": "0.3.0",
     "@entur/modal": "1.6.1",
     "@entur/table": "4.5.11",
     "@entur/tokens": "3.3.2",
