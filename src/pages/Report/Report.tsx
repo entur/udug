@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Loader } from '@entur/loader';
 import {
   Table,
@@ -8,7 +8,7 @@ import {
   HeaderCell,
   DataCell,
 } from '@entur/table';
-import { EmphasizedText, Heading1, Paragraph } from '@entur/typography';
+import { Heading1 } from '@entur/typography';
 import { BannerAlertBox } from '@entur/alert';
 import { groupReportEntries } from '../../util/groupReportEntries';
 import { useReport } from '../../hooks/useReport';
