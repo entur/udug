@@ -1,0 +1,30 @@
+{
+  "report.fetchError": {
+    "defaultMessage": "Error fetching report",
+    "description": "Error message for error fetching report"
+  },
+  "report.heading": {
+    "defaultMessage": "NeTEx validation report",
+    "description": "Report heading"
+  },
+  "report.noValidationIssuesBanner.text": {
+    "defaultMessage": "The validation report contains no issues.",
+    "description": "Text for no validation issues banner"
+  },
+  "report.noValidationIssuesBanner.title": {
+    "defaultMessage": "No validation issues",
+    "description": "Title for no validation issues banner"
+  },
+  "report.preamble.codespaceLabel": {
+    "defaultMessage": "Codespace",
+    "description": "Label for codespace in report preamble"
+  },
+  "report.preamble.createdLabel": {
+    "defaultMessage": "Created",
+    "description": "Label for creation date in report preamble"
+  },
+  "report.preamble.reportIdLabel": {
+    "defaultMessage": "Report ID",
+    "description": "Label for report ID in report preamble"
+  }
+}

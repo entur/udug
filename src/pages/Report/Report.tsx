@@ -15,6 +15,9 @@ import { useReport } from '../../hooks/useReport';
 import { ExpandableReportRow } from './ExpandableReportRow';
 import { sortBySeverity } from '../../util/sortBySeverity';
 import { useParams } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { Preamble } from './Preamble';
+import { NoValidationIssues } from './NoValidationIssues';
 
 type ReportParams = {
   codespace: string;
@@ -25,6 +28,8 @@ export const Report = () => {
   const { codespace, id } = useParams<ReportParams>();
 
   const { report, error } = useReport(codespace!, id!);
+
+  const { formatMessage } = useIntl();
 
   const groupedEntries = useMemo(() => {
     return groupReportEntries(
@@ -42,9 +47,22 @@ export const Report = () => {
 
   return (
     <div>
-      <Heading1>NeTEx validation report</Heading1>
+      <Heading1>
+        {formatMessage({
+          id: 'report.heading',
+          description: 'Report heading',
+          defaultMessage: 'NeTEx validation report',
+        })}
+      </Heading1>
       {error && (
-        <BannerAlertBox title="Error fetching report" variant="error">
+        <BannerAlertBox
+          title={formatMessage({
+            id: 'report.fetchError',
+            description: 'Error message for error fetching report',
+            defaultMessage: 'Error fetching report',
+          })}
+          variant="error"
+        >
           <pre>
             {error.status}: {error.statusText}
           </pre>
@@ -53,24 +71,8 @@ export const Report = () => {
       {!report && !error && <Loader>Loading report</Loader>}
       {report && (
         <>
-          <Paragraph>
-            Codespace: <EmphasizedText>{report.codespace}</EmphasizedText>
-          </Paragraph>
-          <Paragraph>
-            Report ID:{' '}
-            <EmphasizedText>{report.validationReportId}</EmphasizedText>
-          </Paragraph>
-          <Paragraph>
-            Created:{' '}
-            <EmphasizedText>
-              {new Date(report.creationDate).toLocaleString()}
-            </EmphasizedText>
-          </Paragraph>
-          {sorted.length === 0 && (
-            <BannerAlertBox title="No validation issues" variant="info">
-              The validation report contains no issues.
-            </BannerAlertBox>
-          )}
+          <Preamble report={report} />
+          {sorted.length === 0 && <NoValidationIssues />}
           {sorted.length > 0 && (
             <Table fixed>
               <TableHead>
