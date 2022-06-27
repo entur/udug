@@ -7,7 +7,6 @@ import {
 import React, { ReactElement } from 'react';
 import { SEVERITY } from '../../model/ValidationReport';
 
-
 export const ExpandableReportRow = ({
   values,
   children,
