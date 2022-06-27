@@ -6,7 +6,7 @@ import {
 } from '@entur/table';
 import React, { ReactElement } from 'react';
 import { SEVERITY } from '../../model/ValidationReport';
-import './style.css';
+
 
 export const ExpandableReportRow = ({
   values,

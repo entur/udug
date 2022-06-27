@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AppProvider } from './AppProvider';
-import './App.css';
 import { Report } from './pages/Report';
 import { DefaultPayload } from '@entur/micro-frontend';
 import { ConfigContext, useConfigProviderValue } from './config/config';
 import { IntlProvider } from 'react-intl';
 import { useLocaleData } from './hooks/useLocaleData';
+import './App.scss';
 
 interface AppProps extends DefaultPayload {}
 

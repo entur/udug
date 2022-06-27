@@ -6,7 +6,6 @@ import {
   TableRow,
   TableBody,
   HeaderCell,
-  DataCell,
 } from '@entur/table';
 import { Heading1 } from '@entur/typography';
 import { BannerAlertBox } from '@entur/alert';
