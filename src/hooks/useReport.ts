@@ -3,7 +3,7 @@ import { useAuth } from '../AppProvider';
 import { useConfig } from '../config/config';
 import { ValidationReport } from '../model/ValidationReport';
 
-type ValidationReportFetchError = {
+export type ValidationReportFetchError = {
   status: number;
   statusText: string;
 };
