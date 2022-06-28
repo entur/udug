@@ -4,7 +4,7 @@
 
 A frontend application to display NeTEx validation reports from [antu](https://github.com/entur/antu).
 
-# Application modes
+## Application modes
 
 Udug is designed to be run as a micro-frontend client, using https://github.com/entur/micro-frontend. 
 
@@ -14,11 +14,12 @@ However, it can also be run locally or even deployed as a standalone SPA by sett
 * REACT_APP_AUTH0_CLIENT_ID
 * REACT_APP_AUTH0_AUDIENCE
 * REACT_APP_AUTH0_RELATIVE_CALLBACK_URL
-# Configuration
+
+## Configuration
 
 Environment specific configuration is located in src/config/environments. The application loads the correct configuration using either the prop `env` from the micro-frontend payload, or the environment variable `REACT_APP_ENV` in standalone mode, defaulting to `dev` .
 
-# i18n
+## i18n
 
 Formatjs / react-intl is used for internationalization. When adding message descriptors, the npm script `extract-i18n` needs to be run in order to generate the translation keys in `lang/en.json` . Don't forget to add them to `lang/nb.json` . More languages can be added if needed.
 
