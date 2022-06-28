@@ -1,4 +1,12 @@
 {
+  "groupedReportEntries.fileNameHeaderLabel": {
+    "defaultMessage": "File name",
+    "description": "Header label for file name column"
+  },
+  "groupedReportEntries.messagesHeaderLabel": {
+    "defaultMessage": "Messages",
+    "description": "Header label for messages column"
+  },
   "report.fetchError": {
     "defaultMessage": "Error fetching report",
     "description": "Error message for error fetching report"
@@ -38,5 +46,21 @@
   "reportEntryTable.messageHeaderLabel": {
     "defaultMessage": "Message",
     "description": "Label for message header"
+  },
+  "reportLoadingIndicator.message": {
+    "defaultMessage": "Loading report",
+    "description": "Message to show while loading report"
+  },
+  "reportTable.countColumnHeader": {
+    "defaultMessage": "Count",
+    "description": "Column header for violations count"
+  },
+  "reportTable.ruleNameColumnHeader": {
+    "defaultMessage": "Rule name",
+    "description": "Column header for rule name"
+  },
+  "reportTable.severityColumnHeader": {
+    "defaultMessage": "Severity",
+    "description": "Column header for severity"
   }
 }
