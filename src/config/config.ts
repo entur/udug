@@ -12,8 +12,7 @@ const getConfig = async (env: string): Promise<Config> => {
 };
 
 export const useConfig = () => {
-  const config = useContext(ConfigContext);
-  return config;
+  return useContext(ConfigContext);
 };
 
 export const useConfigProviderValue = (env: string) => {
