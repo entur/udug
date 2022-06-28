@@ -35,7 +35,7 @@
     "check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "extract-i18n": "formatjs extract 'src/**/*.ts*' --ignore='**/*.d.ts' --out-file lang/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
-    "compile-i18n": "formatjs compile lang/en.json --ast --out-file compiled-lang/en.json"
+    "compile-i18n": "formatjs compile-folder --ast lang compiled-lang"
   },
   "eslintConfig": {
     "extends": "react-app"

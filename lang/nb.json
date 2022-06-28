@@ -1,0 +1,66 @@
+{
+  "groupedReportEntries.fileNameHeaderLabel": {
+    "defaultMessage": "Filnavn",
+    "description": "Header label for file name column"
+  },
+  "groupedReportEntries.messagesHeaderLabel": {
+    "defaultMessage": "Meldinger",
+    "description": "Header label for messages column"
+  },
+  "report.fetchError": {
+    "defaultMessage": "Kunne ikke laste valideringsrapport",
+    "description": "Error message for error fetching report"
+  },
+  "report.heading": {
+    "defaultMessage": "NeTEx valideringsrapport",
+    "description": "Report heading"
+  },
+  "report.noValidationIssuesBanner.text": {
+    "defaultMessage": "Valideringsrapporten inneholder ingen meldinger.",
+    "description": "Text for no validation issues banner"
+  },
+  "report.noValidationIssuesBanner.title": {
+    "defaultMessage": "Ingen valideringsmeldinger",
+    "description": "Title for no validation issues banner"
+  },
+  "report.preamble.codespaceLabel": {
+    "defaultMessage": "Codespace",
+    "description": "Label for codespace in report preamble"
+  },
+  "report.preamble.createdLabel": {
+    "defaultMessage": "Opprettet",
+    "description": "Label for creation date in report preamble"
+  },
+  "report.preamble.reportIdLabel": {
+    "defaultMessage": "Rapport-id",
+    "description": "Label for report ID in report preamble"
+  },
+  "reportEntryTable.columnHeaderLabel": {
+    "defaultMessage": "Kolonne",
+    "description": "Label for column header"
+  },
+  "reportEntryTable.idHeaderLabel": {
+    "defaultMessage": "Id",
+    "description": "Label for ID header"
+  },
+  "reportEntryTable.messageHeaderLabel": {
+    "defaultMessage": "Melding",
+    "description": "Label for message header"
+  },
+  "reportLoadingIndicator.message": {
+    "defaultMessage": "Laster inn rapport",
+    "description": "Message to show while loading report"
+  },
+  "reportTable.countColumnHeader": {
+    "defaultMessage": "Antall meldinger",
+    "description": "Column header for violations count"
+  },
+  "reportTable.ruleNameColumnHeader": {
+    "defaultMessage": "Valideringsregel",
+    "description": "Column header for rule name"
+  },
+  "reportTable.severityColumnHeader": {
+    "defaultMessage": "Alvorlighetsgrad",
+    "description": "Column header for severity"
+  }
+}
