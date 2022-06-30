@@ -1,14 +1,17 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+const globalConfig = require('./global.json');
 
 export interface Config {
   timetableValidationApiUrl?: string;
+  sentryDSN: string;
+  env: string;
 }
 
-export const ConfigContext = createContext<Config>({});
+export const ConfigContext = createContext<Config>(globalConfig);
 
 const getConfig = async (env: string): Promise<Config> => {
   const { default: config } = await import(`./environments/${env}.json`);
-  return config;
+  return Object.assign({}, globalConfig, config);
 };
 
 export const useConfig = () => {
