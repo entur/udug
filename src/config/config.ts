@@ -3,8 +3,8 @@ const globalConfig = require('./global.json');
 
 export interface Config {
   timetableValidationApiUrl?: string;
-  sentryDSN: string;
-  env: string;
+  sentryDSN?: string;
+  env?: string;
 }
 
 export const ConfigContext = createContext<Config>(globalConfig);
