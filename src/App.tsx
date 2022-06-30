@@ -6,8 +6,8 @@ import { DefaultPayload } from '@entur/micro-frontend';
 import { ConfigContext, useConfigProviderValue } from './config/config';
 import { IntlProvider } from 'react-intl';
 import { useLocaleData } from './hooks/useLocaleData';
-import * as Sentry from "@sentry/react";
-import { BrowserTracing } from "@sentry/tracing";
+import * as Sentry from '@sentry/react';
+import { BrowserTracing } from '@sentry/tracing';
 import './App.css';
 
 interface AppProps extends DefaultPayload {}
