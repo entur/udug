@@ -58,7 +58,7 @@
     "@formatjs/cli": "5.0.2",
     "@types/jest": "28.1.4",
     "@types/react": "18.0.14",
-    "@types/react-dom": "18.0.5",
+    "@types/react-dom": "18.0.6",
     "@types/react-router-dom": "5.3.3",
     "prettier": "2.7.1",
     "source-map-explorer": "2.5.2",
