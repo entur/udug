@@ -20,7 +20,10 @@ export const useReport = (codespace: string, id: string) => {
       const response = await fetch(
         `${config.timetableValidationApiUrl}/${codespace}/${id}`,
         {
-          headers: { Authorization: `Bearer ${accessToken}` },
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Et-Client-Name': 'entur-udug',
+          },
         },
       );
       if (response.ok) {
