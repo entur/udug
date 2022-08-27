@@ -55,7 +55,7 @@
     ]
   },
   "devDependencies": {
-    "@formatjs/cli": "5.0.9",
+    "@formatjs/cli": "5.1.0",
     "@types/jest": "28.1.8",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
