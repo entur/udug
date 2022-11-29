@@ -23,7 +23,7 @@
     "lint-staged": "12.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-intl": "6.2.1",
+    "react-intl": "6.2.2",
     "react-router-dom": "5.3.4",
     "react-scripts": "5.0.1"
   },
@@ -55,7 +55,7 @@
     ]
   },
   "devDependencies": {
-    "@formatjs/cli": "5.1.3",
+    "@formatjs/cli": "5.1.4",
     "@types/jest": "28.1.8",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
