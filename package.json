@@ -19,7 +19,7 @@
     "@entur/typography": "1.8.21",
     "@sentry/react": "7.95.0",
     "@sentry/tracing": "7.95.0",
-    "husky": "7.0.4",
+    "husky": "8.0.3",
     "lint-staged": "12.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
