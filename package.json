@@ -17,7 +17,7 @@
     "@entur/table": "4.9.9",
     "@entur/tokens": "3.19.1",
     "@entur/typography": "1.9.9",
-    "@sentry/react": "7.120.3",
+    "@sentry/react": "9.24.0",
     "@sentry/tracing": "7.120.3",
     "husky": "7.0.4",
     "lint-staged": "12.5.0",
