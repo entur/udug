@@ -1,4 +1,4 @@
 {
   "env": "test",
-  "timetableValidationApiUrl": "https://api.staging.entur.io/timetable-public/v1/timetable-validation"
+  "timetableValidationApiUrl": "https://api.staging.entur.io/timetable-admin/v1/timetable-validation"
 }
