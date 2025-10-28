@@ -14,7 +14,7 @@
     "@entur/menu": "4.2.40",
     "@entur/micro-frontend": "0.5.0",
     "@entur/modal": "1.7.78",
-    "@entur/table": "4.9.18",
+    "@entur/table": "4.9.20",
     "@entur/tokens": "3.20.0",
     "@entur/typography": "1.9.14",
     "@sentry/react": "7.120.4",
