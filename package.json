@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "EUPL-1.2",
   "dependencies": {
-    "@auth0/auth0-react": "1.12.1",
+    "@auth0/auth0-react": "2.15.0",
     "@entur/alert": "0.18.6",
     "@entur/button": "2.10.15",
     "@entur/dropdown": "3.0.37",
