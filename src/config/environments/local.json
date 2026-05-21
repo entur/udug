@@ -1,0 +1,4 @@
+{
+  "env": "local",
+  "timetableValidationApiUrl": "http://localhost:21081/services/validation-report"
+}
