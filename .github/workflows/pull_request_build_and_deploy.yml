@@ -8,10 +8,10 @@ jobs:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.3.1
       - name: Cache node modules
         id: cache-npm
-        uses: actions/cache@v4
+        uses: actions/cache@v4.3.0
         env:
           cache-name: cache-node-modules
         with:
@@ -44,7 +44,7 @@ jobs:
             -Dsonar.test.inclusions=src/**/*.test.ts
             -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
       - run: npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - uses: FirebaseExtended/action-hosting-deploy@v0.10.0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_UDUG_DEV }}'
